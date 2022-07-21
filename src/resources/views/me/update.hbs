@@ -1,0 +1,63 @@
+<div class="container mt-5">
+{{#each data}}
+    <form action="/me/auth/{{this.uid}}?_method=PUT" method="POST" >
+        
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@User name</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="{{this.user_name}}" name="user_name">
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="First name" aria-label="first name" aria-describedby="basic-addon2" value="{{this.first_name}}" name="first_name">
+            <span class="input-group-text" id="basic-addon2">@First name</span>
+        </div>
+
+         <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" aria-describedby="basic-addon2" value="{{this.last_name}}" name="last_name">
+            <span class="input-group-text" id="basic-addon2">@Last name</span>
+        </div>
+        <label for="basic-url" class="form-label">Photo URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{photo_url}}" name="photo_url">
+        </div>
+
+        <label for="basic-url" class="form-label">Website URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{website_url}}" name="website_url">
+        </div>
+
+        <label for="basic-url" class="form-label">Facebook URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://facebook.com/users/</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{facebook_url}}" name="facebook_url">
+        </div>
+
+        <label for="basic-url" class="form-label">Youtube URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://youtube.com/users/</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{youtube_url}}" name="youtube_url">
+        </div>
+
+        <label for="basic-url" class="form-label">Twitter URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://twitter.com/users/</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{twitter_url}}" name="twitter_url">
+        </div>
+
+        <label for="basic-url" class="form-label">Instagram URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon3">https://instagram.com/users/</span>
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="{{instagram_url}}" name="instagram_url">
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text">Bio</span>
+            <textarea class="form-control" aria-label="Bio" name="bio">{{this.bio}}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-2">Success</button>
+    </form>
+    {{/each}}
+</div>

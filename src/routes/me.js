@@ -1,0 +1,13 @@
+const express= require('express');
+const MeController = require('../app/controllers/MeController');
+const router= express.Router();
+router.get('/recycle-bin',  MeController.recycleBin);
+router.post('/add', MeController.addUser);
+router.get('/new', MeController.newUser);
+router.delete('/delete/:uid', MeController.deleteUser);
+router.patch('/restore/:uid', MeController.restoreUser);
+router.delete('/soft-delete/:uid',  MeController.softDeleteUser);
+router.put('/auth/:uid', MeController.authUser);
+router.get('/update/:uid', MeController.updateUser);
+router.get('/',  MeController.viewUsers);
+module.exports = router;

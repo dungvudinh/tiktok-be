@@ -1,0 +1,95 @@
+<div class="container">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">UID</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">User name</th>
+        <th scope="col">Photo URL</th>
+        <th scope="col">Followings count</th>
+        <th scope="col">Followers count</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+        <tr>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.uid}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.user_name}}</td>
+            <td>{{this.photo_url}}</td>
+            <td>{{this.followings_count}}</td>
+            <td>{{this.followers_count}}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary btn-restore" data-id="{{this.uid}}">
+                Restore
+              </button>
+              <button type="button" class="btn btn-outline-danger btn-delete" data-toggle="modal"  data-id="{{this.uid}}"
+              data-bs-target="#delete-user-modal" data-bs-toggle="modal">
+              Delete
+              </button>
+                                      <!-- Modal -->
+            </td>
+              <div class="modal fade" id="delete-user-modal" tabindex="-1" aria-labelledby="delete-user-modal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="delete-user-modal">{{this.user_name}}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you want to delete it ?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                      <button type="button" class="btn btn-primary btn-delete-modal">Yes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </tr>
+      {{else}}
+      <td colspan="10" style="text-align: center">Not have data at here.</td>
+      {{/each}}
+    </tbody>
+  </table>
+  <form action="" method="POST" id="restore-user-form"></form>
+  <form action="" method="POST" id="delete-user-form"></form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>
+    {
+
+       const restoreForm = document.querySelector('#restore-user-form');
+       const deleteForm = document.querySelector('#delete-user-form');
+       const btnRestores = document.querySelectorAll('.btn-restore');
+       const btnDeletes = document.querySelectorAll('.btn-delete');
+       const btnDeleteModal = document.querySelector('.btn-delete-modal');
+        Array.from(btnRestores).forEach(btn=>
+            {
+                btn.onclick=(e)=>
+                {
+                    const uid= btn.getAttribute('data-id');
+                    restoreForm.action=`/me/restore/${uid}?_method=PATCH`;
+                    restoreForm.submit();
+                }
+            })
+        var uid;
+        Array.from(btnDeletes).forEach(btn=>
+        {
+          btn.onclick =()=>
+          {
+            uid = btn.getAttribute('data-id');
+            console.log('hallo');
+          }
+          btnDeleteModal.onclick =()=>
+          {
+            deleteForm.action =`/me/delete/${uid}?_method=DELETE`;
+            deleteForm.submit();
+          }
+        })
+    })
+</script>

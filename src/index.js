@@ -1,0 +1,20 @@
+const express= require('express');
+const morgan = require('morgan');
+const {engine} = require('express-handlebars');
+const path = require('path');
+const route= require('./routes/index');
+const connectDB =  require('./configs/connectDB');
+const methodOverride = require('method-override');
+const port =4000;
+const app = express();
+connectDB();
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public'))); 
+app.use(morgan('combined'));
+app.engine('hbs', engine({extname:'.hbs'}));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'resources/views'));
+route(app);
+
+app.listen(port,  ()=>console.log(`tiktok- BE is running on port:${port}`));

@@ -1,0 +1,79 @@
+<div class="container">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">UID</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">User name</th>
+        <th scope="col">Bio</th>
+        <th scope="col">Followings count</th>
+        <th scope="col">Followers count</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+        <tr>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.uid}}</td>
+            <td>{{this.full_name}}</td>
+            <td>{{this.user_name}}</td>
+            <td>{{this.bio}}</td>
+            <td>{{this.followings_count}}</td>
+            <td>{{this.followers_count}}</td>
+            <td>
+              <button type="button" class="btn btn-outline-primary">
+                <a href="/me/update/{{this.uid}}">Update</a>
+              </button>
+              <button type="button" class="btn btn-outline-danger btn-move-to-trash" data-toggle="modal"  data-id="{{this.uid}}"
+              data-bs-target="#delete-user-modal" data-bs-toggle="modal" data-id  ="{{this.uid}}">
+              Move to trash
+              </button>
+                                      <!-- Modal -->
+            </td>
+              <div class="modal fade" id="delete-user-modal" tabindex="-1" aria-labelledby="delete-user-modal" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="delete-user-modal">{{this.user_name}}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      User:{{this.user_name}} will be move to trash
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary btn-soft-delete" >Yes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </tr>
+      {{else}}
+      <td colspan="10" style="text-align: center">Not have data at here. <a href="/me/new">Add new user here</a></td>
+      {{/each}}
+    </tbody>
+  </table>
+  <form action="" method="POST" id="delete-user-form"></form>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>
+    {
+      const btnMoveToTrashs = document.querySelectorAll('.btn-move-to-trash');
+      const btnSoftDelete= document.querySelector('.btn-soft-delete');
+      const deleteForm = document.querySelector('#delete-user-form');
+      var uid;
+      Array.from(btnMoveToTrashs).forEach(btn=>
+      {
+        btn.onclick = ()=>uid = btn.getAttribute('data-id');
+        btnSoftDelete.onclick =()=>
+        {
+          deleteForm.action = `/me/soft-delete/${uid}?_method=DELETE`;
+          deleteForm.submit();
+        }
+      })
+      
+    })
+</script>
